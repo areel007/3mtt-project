@@ -50,7 +50,6 @@ export const register = [
 
       res.status(201).json({
         message: "User created successfully",
-        user: newUser,
       });
     } catch (error) {
       console.error(error);
@@ -59,7 +58,7 @@ export const register = [
   },
 ];
 
-export const loginUser = [
+export const login = [
   body("username")
     .notEmpty()
     .withMessage("Username is required")
@@ -92,14 +91,13 @@ export const loginUser = [
         return res.status(400).json({ message: "invalid credentials" });
       }
 
-      const user = {
-        _id: userExist._id,
-        username: userExist.username,
-      };
+      const token = jwt.sign({ id: userExist._id }, process.env.JWT_SECRET, {
+        expiresIn: "1h",
+      });
 
       res.status(200).json({
         message: "Login successful",
-        user,
+        token,
       });
     } catch (error) {
       console.error(error);

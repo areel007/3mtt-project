@@ -12,6 +12,7 @@ const corsOptions = {
 };
 
 // import all the routes
+import auth from "./routes/index.mjs";
 
 const app = express();
 dotenv.config();
@@ -21,5 +22,6 @@ app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 // routes middleware
+app.use("/api", auth);
 
 export default app;

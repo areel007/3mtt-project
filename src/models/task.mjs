@@ -1,11 +1,6 @@
 import { Schema, model } from "mongoose";
 
 const TaskSchema = new Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-  },
   title: {
     type: String,
     required: true,
@@ -15,6 +10,7 @@ const TaskSchema = new Schema({
   },
   deadline: {
     type: Date,
+    default: Date.now,
   },
   priority: {
     type: String,
