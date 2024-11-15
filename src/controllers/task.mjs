@@ -12,8 +12,27 @@ export const createTask = async (req, res) => {
 };
 
 export const getTasks = async (req, res) => {
+  const { priority, deadline, query } = req.query;
+
   try {
-    const tasks = await Task.find();
+    const filter = {};
+
+    if (priority) {
+      filter.priority = priority;
+    }
+
+    if (deadline) {
+      filter.deadline = { $lte: new Date(deadline) };
+    }
+
+    if (query) {
+      filter.$or = [
+        { title: { $regex: query, $options: "i" } }, // Case-insensitive match in title
+        { description: { $regex: query, $options: "i" } }, // Case-insensitive match in description
+      ];
+    }
+
+    const tasks = await Task.find(filter);
     res.status(200).json({ tasks });
   } catch (error) {
     res.status(500).json({ message: "Error fetching tasks", error });
