@@ -9,6 +9,7 @@ const corsOptions = {
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Allowed HTTP methods
   credentials: true, // Allow credentials (cookies, authorization headers)
   optionsSuccessStatus: 204,
+  allowedHeaders: "Content-Type, Authorization",
 };
 
 // import all the routes
