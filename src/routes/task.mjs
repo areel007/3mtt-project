@@ -2,6 +2,7 @@ import { Router } from "express";
 import {
   createTask,
   deleteTask,
+  getTask,
   getTasks,
   updateTask,
 } from "../controllers/task.mjs";
@@ -17,6 +18,7 @@ router
   .get(authMiddleware, getTasks);
 router
   .route("/:id")
+  .get(authMiddleware, getTask)
   .patch(authMiddleware, updateTask)
   .delete(authMiddleware, deleteTask);
 

@@ -95,9 +95,14 @@ export const login = [
         expiresIn: "1h",
       });
 
+      const user = {
+        id: userExist._id,
+        token,
+      };
+
       res.status(200).json({
         message: "Login successful",
-        token,
+        user,
       });
     } catch (error) {
       console.error(error);
